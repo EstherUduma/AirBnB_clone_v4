@@ -21,7 +21,7 @@ def close_db(error):
     storage.close()
 
 
-@app.route('/2-hbnb')
+@app.route('/3-hbnb')
 def hbnb():
     """Request for template with states,cities & amentities"""
     states = storage.all(State).values()
@@ -38,7 +38,7 @@ def hbnb():
     places = sorted(places, key=lambda k: k.name)
     cache_id = str(uuid.uuid4())
 
-    return render_template('2-hbnb.html',
+    return render_template('3-hbnb.html',
                            states=st_ct,
                            amenty=amenty,
                            places=places,

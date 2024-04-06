@@ -21,7 +21,7 @@ def close_db(error):
     storage.close()
 
 
-@app.route('/0-hbnb')
+@app.route('/1-hbnb')
 def hbnb():
     """Request for template with states,cities & amentities"""
     states = storage.all(State).values()
