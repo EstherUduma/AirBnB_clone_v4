@@ -3,19 +3,36 @@ $(document).ready(function () {
   let checkedStates = {};
   let checkedCities = {};
 
-  $(document).on('change', "input[type='checkbox']", function () {
-    if (this.checked) {
-      checkedAmenities[$(this).data('id')] = $(this).data('name');
-    } else {
-      delete checkedAmenities[$(this).data('id')];
-    }
-    let lst = Object.values(checkedAmenities);
-    if (lst.length > 0) {
-      $('div.amenities > h4').text(Object.values(checkedAmenities).join(', '));
-    } else {
-      $('div.amenities > h4').html('&nbsp;');
-    }
-  });
+
+  (document).on('change', "input[type='checkbox']", function () {
+      const id = $(this).data('id');
+      const name = $(this).data('name');
+      
+      if (this.checked) {
+        if ($(this).hasClass('state')) {
+          checkedStates[id] = name;
+        } else if ($(this).hasClass('city')) {
+          checkedCities[id] = name;
+        }
+        else if ($(this).hasClass('amenity')) {
+          checkedAmenities[id] = name;
+        }
+      } else {
+        if ($(this).hasClass('state')) {
+          delete checkedStates[id];
+        } else if ($(this).hasClass('city')) {
+          delete checkedCities[id];
+        }else if ($(this).hasClass('amenity')) {
+          delete checkedAmenities[id];
+        }
+      }
+      const statesList = Object.values(checkedStates).join(', ');
+      const citiesList = Object.values(checkedCities).join(', ');
+      const amenitiesList = Object.values(checkedAmenities).join(', ');
+      const locations = statesList + ', ' + citiesList;
+      
+      $('div.locations > h4').text(locations);
+    });
 
   const link = "http://" + window.location.hostname;
   $(function () {
